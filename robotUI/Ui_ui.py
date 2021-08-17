@@ -25,6 +25,9 @@ class Ui_MainWindow(object):
         self.imgLabel = QtWidgets.QLabel(self.frame)
         self.imgLabel.setGeometry(QtCore.QRect(0, 0, 1430, 800))
         self.imgLabel.setObjectName("imgLabel")
+        self.selectPic = QtWidgets.QPushButton(self.frame)
+        self.selectPic.setGeometry(QtCore.QRect(1470, 140, 93, 28))
+        self.selectPic.setObjectName("selectPic")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1611, 26))
@@ -41,3 +44,4 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.imgLabel.setText(_translate("MainWindow", "TextLabel"))
+        self.selectPic.setText(_translate("MainWindow", "PushButton"))
