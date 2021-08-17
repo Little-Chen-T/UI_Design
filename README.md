@@ -7,6 +7,9 @@
 │  
 ├─img                    -- 存放图片资源
 │      source_img.png
+├─savedImg               -- 存放经过函数处理后图片资源
+│
+├─robotUI                -- UI设计文件夹
 │      
 └─src                    -- 存放代码源文件
 ```
