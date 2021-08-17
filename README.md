@@ -1,5 +1,16 @@
 # UI_Design
 
+## 文件树
+
+```shell
+│  README.md             -- 项目ReadMe文档
+│  
+├─img                    -- 存放图片资源
+│      source_img.png
+│      
+└─src                    -- 存放代码源文件
+```
+
 ## 第一版
 
 ### 实现思路
