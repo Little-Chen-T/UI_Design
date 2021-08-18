@@ -1,5 +1,6 @@
 import cv2
 import os
+from utils.operation_stack import OperationStack
 
 
 class Painter:
@@ -9,9 +10,8 @@ class Painter:
     """
 
     def __init__(self):
-
-        self.__path_input_img = "img/source_img.png"
-        self.__path_cache_img = "img/cache_img.png"
+        
+        self.__stack = OperationStack()
         self.__color_dic = {0: (0, 0, 255),
                             1: (0, 255, 255),
                             2: (0, 255, 0),
@@ -23,8 +23,14 @@ class Painter:
                             8: (255, 255, 255)}
         self.__screen_width = 1920
         self.__screen_high = 1080
-        # self.path_output_img = "/img/output_img.png"
-        # self.source_img = cv2.imread(self.path_source_img)
+
+        self.__update()
+
+    def __update(self):
+        
+        """更新image属性"""
+
+        self.image = cv2.imread(self.__stack[self.__stack.front()])
 
     def __convert_color(self, color):
 
@@ -60,14 +66,18 @@ class Painter:
         :return:image  读取到的图片
         """
 
-        if os.path.exists(self.__path_cache_img):
-            image = cv2.imread(self.__path_cache_img)
-        else:
-            image = cv2.imread(self.__path_input_img)
-
+        image = cv2.imread(self.__stack.front())
         return image
 
+    def __write_img(self, image):
+        """
+        将处理好的图片写入缓存
+        :param:image    处理后的cvMat对象
+        """
 
+        self.__stack.push()
+        cv2.imwrite(self.__stack.front(), image)
+        self.__update()
 
     def draw_line(self, width, start_x, start_y, end_x, end_y, color):
 
@@ -89,7 +99,7 @@ class Painter:
 
         image = cv2.line(image, start_point, end_point, color, width)
 
-        cv2.imwrite(self.__path_cache_img, image)
+        self.__write_img(image)
 
     def draw_rectangle(self, width, start_x, start_y, end_x, end_y, color):
     
@@ -111,7 +121,7 @@ class Painter:
 
         image = cv2.rectangle(image, start_point, end_point, color, width)
 
-        cv2.imwrite(self.__path_cache_img, image)
+        self.__write_img(image)
 
     def draw_circle(self, width, center_x, center_y, radius, color):
         
@@ -131,7 +141,7 @@ class Painter:
 
         image = cv2.circle(image, center_point, radius, color, width)
 
-        cv2.imwrite(self.__path_cache_img, image)
+        self.__write_img(image)
 
     def draw_ellipse(self, width, center_x, center_y, length_x, length_y, color):
         
@@ -152,13 +162,27 @@ class Painter:
 
         image = cv2.ellipse(image, center_point, length_x, length_y, color, width)
 
-        cv2.imwrite(self.__path_cache_img, image)
+        self.__write_img(image)
+
+    def rollback(self):
+
+        """撤销操作"""
+
+        self.__stack.rollback()
+        self.__update()
+
+    def recover(self):
+
+        """恢复操作"""
+
+        self.__stack.recover()
+        self.__update()
 
 
 if __name__ == "__main__":
 
-    # painter = Painter()
-    # painter.draw_line(10, 10, 10, 100, 100, 1)
-    # painter.draw_rectangle(10, 200, 200, 300, 300, 0)
-    # painter.draw_circle(10, 500, 500, 2, 3)
+    painter = Painter()
+    painter.draw_line(10, 10, 10, 100, 100, 1)
+    painter.draw_rectangle(10, 200, 200, 300, 300, 0)
+    painter.draw_circle(10, 500, 500, 2, 3)
     # painter.draw_ellipse(10, 700, 700, 100, 50, 5)
