@@ -30,7 +30,7 @@ class Painter:
         
         """更新image属性"""
 
-        self.image = cv2.imread(self.__stack[self.__stack.front()])
+        self.image = cv2.imread(self.__stack.front())
 
     def __convert_color(self, color):
 
@@ -59,16 +59,6 @@ class Painter:
         point = (cv_y, cv_x)
         return point
 
-    def __load_img(self):
-        
-        """
-        加载图像。若没有缓存图片，加载原图；若有，加载缓存图片。
-        :return:image  读取到的图片
-        """
-
-        image = cv2.imread(self.__stack.front())
-        return image
-
     def __write_img(self, image):
         """
         将处理好的图片写入缓存
@@ -91,7 +81,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.__load_img()
+        image = self.image
 
         color = self.__convert_color(color)
         start_point = self.__convert_coordinate(start_x, start_y)
@@ -113,7 +103,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.__load_img()
+        image = self.image
 
         color = self.__convert_color(color)
         start_point = self.__convert_coordinate(start_x, start_y)
@@ -134,7 +124,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.__load_img()
+        image = self.image
 
         color = self.__convert_color(color)
         center_point = self.__convert_coordinate(center_x, center_y)
@@ -155,7 +145,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.__load_img()
+        image = self.image
 
         color = self.__convert_color(color)
         center_point = self.__convert_coordinate(center_x, center_y)
