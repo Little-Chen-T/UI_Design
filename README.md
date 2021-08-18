@@ -3,15 +3,33 @@
 ## 文件树
 
 ```shell
-│  README.md             -- 项目ReadMe文档
+│  .gitignore
+│  README.md
 │  
-├─img                    -- 存放图片资源
-│      source_img.png
-├─savedImg               -- 存放经过函数处理后图片资源
-│
-├─robotUI                -- UI设计文件夹
+├─.vscode
+│      launch.json
 │      
-└─src                    -- 存放代码源文件
+├─img                               保存程序运行中的全部图片资源
+│      cache_0.png
+│      
+├─robotUI
+│  │  main.py
+│  │  ui.ui
+│  │  Ui_ui.py
+│  │  
+│  ├─savedImg
+│  │      source_img.png
+│  │      
+│  └─__pycache__
+│          Ui_ui.cpython-36.pyc
+│          
+├─src                               存放后端主程序源文件
+│      painter.py                   实现画图、操作栈维护等操作
+│      __init__.py
+│      
+└─utils                             存放工具类源文件
+        operation_stack.py          提供操作栈类
+        __init__.py
 ```
 
 ## 第一版
