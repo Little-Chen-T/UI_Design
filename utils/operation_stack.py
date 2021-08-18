@@ -41,7 +41,7 @@ class OperationStack():
             self.__front += 1
             history = self.__stack[self.__fornt-1].split("_")[1]
             new = self.__stack[self.__front].split("_")[1]
-            if new < history:
+            if int(new) < int(history):
                 self.__front -= 1
 
     def front(self):
