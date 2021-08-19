@@ -121,7 +121,7 @@
       <property name="geometry">
        <rect>
         <x>210</x>
-        <y>820</y>
+        <y>830</y>
         <width>93</width>
         <height>32</height>
        </rect>
@@ -139,7 +139,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>820</y>
+        <y>830</y>
         <width>93</width>
         <height>32</height>
        </rect>
@@ -157,7 +157,7 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>820</y>
+        <y>830</y>
         <width>93</width>
         <height>32</height>
        </rect>
@@ -688,7 +688,7 @@
        </font>
       </property>
       <property name="text">
-       <string>颜色</string>
+       <string>内容</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_18">
@@ -747,7 +747,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QTextEdit" name="strColor">
+     <widget class="QTextEdit" name="strContent">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -803,11 +803,11 @@
        <string>起点XY</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="genCode">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>860</y>
+        <x>200</x>
+        <y>870</y>
         <width>101</width>
         <height>32</height>
        </rect>
@@ -819,6 +819,52 @@
       </property>
       <property name="text">
        <string>生成代码</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveImg">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>870</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>保存图片</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="strColor">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>800</y>
+        <width>201</width>
+        <height>28</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>800</y>
+        <width>81</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>颜色</string>
       </property>
      </widget>
     </widget>

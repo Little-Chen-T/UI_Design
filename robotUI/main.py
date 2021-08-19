@@ -31,9 +31,15 @@ class MyClass(QMainWindow, Ui_MainWindow):
         #清空
         self.clearPic.clicked.connect(self.clearImg)
 
+        #保存图片
+        self.saveImg.clicked.connect(painter.save)
+
         #前进后退
         self.forward.clicked.connect(self.nextImg)
         self.backwards.clicked.connect(self.lastImg)
+
+        #生成代码
+        # self.genCode.clicked.connect(painter.printStack2)
     
     #初始化参数
     def initPara(self):
@@ -74,6 +80,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.strSize.setPlainText("1")
         self.strWidth.setPlainText("1")
         self.strStartXY.setPlainText("0 0")
+        self.strContent.setPlainText("SPR")
         self.strColor.setPlainText("0")
 
     #画直线
@@ -145,18 +152,18 @@ class MyClass(QMainWindow, Ui_MainWindow):
         self.imgLabel.setPixmap(jpg) # 在label上显示图片
         self.imgLabel.setScaledContents (True) # 让图片自适应label大小
 
+    #画字符
     def drawStrFun(self):
     
-        lineWidth_s = self.lineWidth.toPlainText()
-        lineStartX_s = self.lineStartXY.toPlainText().split(' ')[0]
-        lineStartY_s = self.lineStartXY.toPlainText().split(' ')[1]
-        lineEndX_s = self.lineEndXY.toPlainText().split(' ')[0]
-        lineEndY_s = self.lineEndXY.toPlainText().split(' ')[1]
-        color_s = self.lineColor.toPlainText()
+        #从text中读取参数
+        strSize_s = self.strSize.toPlainText()
+        strWidth_s = self.strWidth.toPlainText()
+        strStartX_s = self.strStartXY.toPlainText().strip().split(' ')[0]
+        strStartY_s = self.strStartXY.toPlainText().strip().split(' ')[-1]
+        strContent_s = self.strContent.toPlainText()
+        color_s = self.strColor.toPlainText()
 
-        painter.draw_line(int(lineWidth_s), int(lineStartX_s), int(lineStartY_s), int(lineEndX_s), int(lineEndY_s), int(color_s))
-
-        # painter.draw_line(10, 10, 10, 100, 100, 1)
+        painter.draw_text(int(strSize_s.replace(" ", "")), int(strWidth_s.replace(" ", "")), int(strStartX_s.replace(" ", "")), int(strStartY_s.replace(" ", "")), strContent_s, int(color_s.replace(" ", "")) % 9)
 
         jpg = mat2qpix(painter.image) # mat to qpixmap
 
@@ -180,7 +187,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
     def lastImg(self): #后退
 
         painter.rollback()
-
+        
         jpg = mat2qpix(painter.image) # mat to qpixmap
 
         self.imgLabel.setPixmap(jpg) # 在label上显示图片
@@ -190,7 +197,7 @@ class MyClass(QMainWindow, Ui_MainWindow):
     def nextImg(self): #前进
     
         painter.recover()
-
+        
         jpg = mat2qpix(painter.image) # mat to qpixmap
 
         self.imgLabel.setPixmap(jpg) # 在label上显示图片

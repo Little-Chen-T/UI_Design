@@ -1,5 +1,5 @@
 class OperationStack():
-
+    
     """操作堆栈，实现操作的恢复与撤销"""
 
     def __init__(self, image):
@@ -41,4 +41,4 @@ class OperationStack():
 
         """访问栈顶操作"""
 
-        return self.__stack[self.__front]       
+        return self.__stack[self.__front]  
