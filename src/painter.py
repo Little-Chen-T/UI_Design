@@ -11,7 +11,7 @@ class Painter:
 
     def __init__(self):
         
-        self.__stack = OperationStack()
+        self.__stack = OperationStack(cv2.imread("img/cache_0.png"))
         self.__color_dic = {0: (0, 0, 255),
                             1: (0, 255, 255),
                             2: (0, 255, 0),
@@ -30,7 +30,7 @@ class Painter:
         
         """更新image属性"""
 
-        self.image = cv2.imread(self.__stack.front())
+        self.image = self.__stack.front()
 
     def __convert_color(self, color):
 
@@ -65,8 +65,7 @@ class Painter:
         :param:image    处理后的cvMat对象
         """
 
-        self.__stack.push()
-        cv2.imwrite(self.__stack.front(), image)
+        self.__stack.push(image)
         self.__update()
 
     def draw_line(self, width, start_x, start_y, end_x, end_y, color):
@@ -168,6 +167,11 @@ class Painter:
         self.__stack.recover()
         self.__update()
 
+    def save(self):
+
+        """保存当前图片"""
+
+        cv2.imwrite("img/cache_1.png", self.image)
 
 if __name__ == "__main__":
 

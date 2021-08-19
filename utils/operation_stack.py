@@ -2,32 +2,28 @@ class OperationStack():
 
     """操作堆栈，实现操作的恢复与撤销"""
 
-    def __init__(self, init_img="cache_0"):
+    def __init__(self, image):
 
-        self.__stack = ["img/"+init_img+".png"]
-        self.__order = int(init_img.split("_")[1])
+        self.__stack = [image]
         self.__front = 0
 
-    def push(self):
+    def push(self, image):
         
         """将操作记录压入操作栈"""
-
-        self.__order += 1
-        img_name = "img/cache_" + str(self.__order) + ".png"
         
         if len(self.__stack) == self.__front + 1:
-            self.__stack.append(img_name)
+            self.__stack.append(image)
             self.__front += 1
         else:
             self.__front += 1
-            self.__stack[self.__front] = img_name
+            self.__stack[self.__front] = image
 
     def rollback(self):
 
         """撤销操作"""
 
         if (self.__front >= 1):
-            self.__fornt -= 1
+            self.__front -= 1
         else:
             ...
 
@@ -39,10 +35,7 @@ class OperationStack():
             ...
         else:
             self.__front += 1
-            history = self.__stack[self.__fornt-1].split("_")[1]
-            new = self.__stack[self.__front].split("_")[1]
-            if int(new) < int(history):
-                self.__front -= 1
+            
 
     def front(self):
 
