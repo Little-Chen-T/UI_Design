@@ -9,9 +9,9 @@ class Painter:
     绘画对象，实现直线、圆、椭圆、字符等的绘制
     """
 
-    def __init__(self):
+    def __init__(self, init_path="img/cache_0.png"):
         
-        self.__stack = OperationStack(cv2.imread("img/cache_0.png"))
+        self.__stack = OperationStack(cv2.imread(init_path))
         self.__color_dic = {0: (0, 0, 255),
                             1: (0, 255, 255),
                             2: (0, 255, 0),
@@ -149,7 +149,28 @@ class Painter:
         color = self.__convert_color(color)
         center_point = self.__convert_coordinate(center_x, center_y)
 
-        image = cv2.ellipse(image, center_point, length_x, length_y, color, width)
+        image = cv2.ellipse(image, center_point, (length_x, length_y), 0, 360, 0, color, width)
+
+        self.__write_img(image)
+    
+    def draw_text(self, size, width, start_x, start_y, text, color):
+
+        """
+        在源图像中绘制字符
+        :parma:size:    字体大小
+        :param:width:   线宽
+        :param:start_x:    字符左下角x坐标
+        :param:start_y:    字符左下角y坐标
+        :param:text:   文本内容
+        :param:color:   文本颜色
+        """
+
+        image = self.image
+
+        color = self.__convert_color(color)
+        point = self.__convert_coordinate(start_x, start_y)
+
+        image = cv2.putText(image, text, point, cv2.FONT_HERSHEY_SIMPLEX, size, color, width)
 
         self.__write_img(image)
 
@@ -176,7 +197,8 @@ class Painter:
 if __name__ == "__main__":
 
     painter = Painter()
-    painter.draw_line(10, 10, 10, 100, 100, 1)
-    painter.draw_rectangle(10, 200, 200, 300, 300, 0)
-    painter.draw_circle(10, 500, 500, 2, 3)
-    # painter.draw_ellipse(10, 700, 700, 100, 50, 5)
+    # painter.draw_line(10, 10, 10, 100, 100, 1)
+    # painter.draw_rectangle(10, 200, 200, 300, 300, 0)
+    # painter.draw_circle(10, 500, 500, 2, 3)
+    # painter.draw_ellipse(10, 700, 700, 200, 400, 5)
+    painter.save()
