@@ -1,5 +1,6 @@
 import cv2
 import os
+import copy
 from utils.operation_stack import OperationStack
 
 
@@ -11,7 +12,8 @@ class Painter:
 
     def __init__(self, init_path="img/cache_0.png"):
         
-        self.__stack = OperationStack(cv2.imread(init_path))
+        self.__init_path = init_path
+        self.__stack = OperationStack(cv2.imread(self.__init_path))
         self.__color_dic = {0: (0, 0, 255),
                             1: (0, 255, 255),
                             2: (0, 255, 0),
@@ -80,7 +82,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.image
+        image = copy.deepcopy(self.image)
 
         color = self.__convert_color(color)
         start_point = self.__convert_coordinate(start_x, start_y)
@@ -102,7 +104,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.image
+        image = copy.deepcopy(self.image)
 
         color = self.__convert_color(color)
         start_point = self.__convert_coordinate(start_x, start_y)
@@ -123,7 +125,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.image
+        image = copy.deepcopy(self.image)
 
         color = self.__convert_color(color)
         center_point = self.__convert_coordinate(center_x, center_y)
@@ -144,7 +146,7 @@ class Painter:
         :param:color:   颜色
         """
         
-        image = self.image
+        image = copy.deepcopy(self.image)
 
         color = self.__convert_color(color)
         center_point = self.__convert_coordinate(center_x, center_y)
@@ -165,7 +167,7 @@ class Painter:
         :param:color:   文本颜色
         """
 
-        image = self.image
+        image = copy.deepcopy(self.image)
 
         color = self.__convert_color(color)
         point = self.__convert_coordinate(start_x, start_y)
@@ -188,6 +190,13 @@ class Painter:
         self.__stack.recover()
         self.__update()
 
+    def clear(self):
+
+        """清空操作"""
+
+        self.__stack = OperationStack(cv2.imread(self.__init_path))
+        self.__update()
+
     def save(self):
 
         """保存当前图片"""
@@ -197,8 +206,9 @@ class Painter:
 if __name__ == "__main__":
 
     painter = Painter()
-    # painter.draw_line(10, 10, 10, 100, 100, 1)
-    # painter.draw_rectangle(10, 200, 200, 300, 300, 0)
+    painter.draw_line(10, 10, 10, 100, 100, 1)
+    painter.rollback()
+    painter.draw_rectangle(10, 200, 200, 300, 300, 0)
     # painter.draw_circle(10, 500, 500, 2, 3)
     # painter.draw_ellipse(10, 700, 700, 200, 400, 5)
     painter.save()

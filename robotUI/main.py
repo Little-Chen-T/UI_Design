@@ -177,9 +177,8 @@ class MyClass(QMainWindow, Ui_MainWindow):
                                          QMessageBox.No)
         if reply==QMessageBox.Yes:
         
-            absPath = os.path.dirname(os.path.abspath(__file__)) #获取当前py文件绝对路径
-
-            jpg = QPixmap(absPath + '\srcImg\source_img.png')
+            painter.clear()
+            jpg = mat2qpix(painter.image)
 
             self.imgLabel.setPixmap(jpg) # 在label上显示图片
             self.imgLabel.setScaledContents (True) # 让图片自适应label大小

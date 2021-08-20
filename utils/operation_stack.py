@@ -1,3 +1,6 @@
+import copy
+
+
 class OperationStack():
     
     """操作堆栈，实现操作的恢复与撤销"""
@@ -11,6 +14,8 @@ class OperationStack():
         
         """将操作记录压入操作栈"""
         
+        image = copy.deepcopy(image)
+
         if len(self.__stack) == self.__front + 1:
             self.__stack.append(image)
             self.__front += 1
@@ -41,4 +46,10 @@ class OperationStack():
 
         """访问栈顶操作"""
 
-        return self.__stack[self.__front]  
+        return self.__stack[self.__front]
+
+    def get_front(self):
+        return self.__front
+
+    def get_stack(self, i):
+        return self.__stack[i]
